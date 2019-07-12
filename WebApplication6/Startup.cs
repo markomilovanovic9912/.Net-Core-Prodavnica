@@ -95,8 +95,8 @@ namespace WebApplication6
             });
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = "141391246433-mkqbpqsnje06o7vj5ip3qahf048mn9cv.apps.googleusercontent.com";
-                googleOptions.ClientSecret = "qE0ea_cf1LmcecJSdZoe_MfH";
+                googleOptions.ClientId = "";
+                googleOptions.ClientSecret = "";
                 googleOptions.CallbackPath = new PathString ("/Home/Index");
                 
             });
