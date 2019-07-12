@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="StoreTestProject.AdminControllerIntegrationTests.AdminController_AddItemSubType_Success" /><Add Test="StoreTestProject.AdminControllerIntegrationTests.AdminController_RemoveItemSubType_Success" /></Playlist>
