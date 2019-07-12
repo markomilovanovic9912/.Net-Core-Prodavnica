@@ -1,0 +1,50 @@
+﻿
+@model WebApplication6.Models.Admin.AdminModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RemoveItem</title>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div class="row">
+        <h3>Remove item:</h3>
+        <hr />
+        <div class="text-danger"></div>
+        <div class="col-lg-6" style=" padding:22px;margin-left:25%;">
+            <div class="row">
+                <div class="row">
+                    <div class="form-group">
+                        <label style="" for="ItemType">Item Type:</label>
+                        <select id="ItemTypes1" asp-items="@Model.GetItemType()" class="form-control" onchange="GetModels('#ItemTypes1 option:selected','#models1')">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group">
+                        <label style="" for="Model">Model:</label>
+                        <select id="models1" name="models1" multiple class="form-control" style="height:25%">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%; " type="submit" onclick="RemoveItem('#models1 option:selected')">Remove item</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/js/AdminJs/RemoveItem.js"></script>
+
+
+
+</body>
+</html>

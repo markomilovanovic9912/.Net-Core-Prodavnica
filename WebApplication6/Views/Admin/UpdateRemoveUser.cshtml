@@ -1,0 +1,212 @@
+﻿@model WebApplication6.Models.Admin.AdminModel
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateRemoveUser</title>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+ 
+ 
+</head>
+
+<body>
+    <h3>Update User</h3>
+    <br><hr>
+        <div class="row">
+            <h3>Search Users</h3>
+            <div class="col-lg-6">
+                <form>
+                    <div class="row">
+
+                        <div class="col-lg-12" style=" padding:22px;">
+                            <div class="form-group">
+                                <label style="" for="search">Search Users By Username:</label>
+                                <input id="search" class="form-control" type="text" name="search" onkeyup="SearchUsers()">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="RemoveUserForm" name="RemoveUserForm" method="post">
+                    <div class="row">
+                        <h3>Remove User</h3>
+                        <div class="text-danger"></div>
+                        <div class="col-lg-12" style=" padding:22px;">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="usrNameToRemove">User Name:</label>
+                                        <textarea id="usrNameToRemove" name="usrNameToRemove" style="resize:none;" rows="1" type="text" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%;" type="submit">Remove User </button>
+
+
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <form asp-controller="Admin" asp-action="" method="post">
+                    <div class="row">
+                        <div class="col-lg-12" style=" padding:22px;">
+
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label style="" for="User">Users:</label>
+                                    <select multiple style="height:20%" asp-for="UserName" class="form-control" id="seleUser" onchange="SelUser()"></select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    <form asp-controller="Admin" asp-action="" method="post" name="form1">
+        <div class="row">
+
+            <div class="text-danger"></div>
+            <div class="col-lg-12" style=" padding:22px;">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <label asp-for="User.Id" for="usrId">Id:</label>
+                            <textarea asp-for="User.Id" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrId"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="User.FirstName" for="usrFirstName">First Name:</label>
+                            <textarea asp-for="User.FirstName" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrFirstName"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label asp-for="User.MiddleInitial" for="usrMiddleInitial">Middle Initial:</label>
+                            <textarea asp-for="User.MiddleInitial" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrMiddleInitial"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label asp-for="User.LastName" for="usrLastName">Last Name:</label>
+                            <textarea asp-for="User.LastName" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrLastName"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label asp-for="User.UserClaims" for="usrClaims">User Claims:</label>
+                            <textarea asp-for="User.UserClaims" style="resize:none;" disabled rows="12" type="text" class="form-control" id="usrClaims"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="form-group">
+                                <label asp-for="User.Email" for="usrEmail">Email:</label>
+                                <div class="input-group">
+                                    <textarea asp-for="User.Email" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrEmail"></textarea>
+                                    <span class="input-group-addon" aria-hidden="true"><input type="checkbox" class="myCheck"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label asp-for="User.PhoneNumber" for="usrPhone">Phone Number:</label>
+                                <div class="input-group">
+                                    <textarea asp-for="User.PhoneNumber" style="resize:none;" disabled rows="1" type="text" class="form-control" id="usrPhoneNumber"></textarea>
+                                    <span class="input-group-addon" aria-hidden="true"><input type="checkbox" class="myCheck1"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form id="AddUserClaimForm" name="AddUserClaimForm" method="post">
+                <div class="row">
+                    <h3>Add User claim</h3>
+                    <div class="text-danger"></div>
+                    <div class="col-lg-12" style=" padding:22px;">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="AddClaimUsrId">User Id:</label>
+                                    <textarea id="AddClaimUsrId" name="AddClaimUsrId" style="resize:none;" rows="1" type="text" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="AddClaimUsrClaimType">User Claim Type:</label>
+                                    <select id="AddClaimUsrClaimType" name="AddClaimUsrClaimType" class="form-control">
+                                        <option value="Role">Role</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="AddClaimsUsrClaimValue">User Claim Value:</label>
+                                    <select id="AddClaimsUsrClaimValue" name="AddClaimsUsrClaimValue" class="form-control">
+                                        <option value="User" selected>User</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%;" type="submit">Add User Claim</button>
+
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <form id="RemoveUserClaimForm" name="RemoveUserClaimForm" method="post">
+                <div class="row">
+                    <h3>Remove User claim</h3>
+                    <div class="text-danger"></div>
+                    <div class="col-lg-12" style=" padding:22px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="RemoveClaimId">Claim Id:</label>
+                                    <textarea id="RemoveClaimId" name="RemoveClaimId" style="resize:none;" rows="1" type="text" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%;" type="submit">Remove User Claim</button>
+            </form>
+            </div>
+        </div>
+
+       <script src="~/js/AdminJs/UpdateUser.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿@model WebApplication6.Models.Order.InvoiceListModel
+<!DOCTYPE html>
+ 
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InvoiceList</title>
+</head>
+<body>
+
+    <h1> Customer Order History</h1>
+    <div class="row" style="border-bottom:1px solid black; padding-bottom:15px; margin-bottom:2%">
+        <h3>Open Invoice:</h3>
+        <form asp-action="Invoice" asp-controller="OrderProcessing" method="post">
+            <div class="form-group">
+                <div class="col-lg-7" style="padding-bottom:10px">
+                    <div class="row" style="padding-bottom:10px;"> <div class="col-lg-3"> <label for="InvoiceId">Input Invoice Id:</label></div></div>
+                    <div class="row">
+                        <div class="col-lg-4">  <input id="InvoiceId" type="text" class="form-control" asp-for="@Model.Id"></div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-warning btn-xs"> Submit Id</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <h3>Customer Invoices:</h3>
+        <div class="col-xs-12" style="margin-top:20px;">
+            <div class="table-responsive" style="overflow:auto; height:50%">
+                <table class="table table-bordered table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Invoice Id</th>
+                            <th>Invoice Date</th>
+                            <th>Customer User Name</th>
+                        </tr>
+                    </thead>
+                    @foreach (var invoice in Model.Invoices)
+        {
+            <tbody>
+                <tr>
+                    <td>@invoice.Id</td>
+                    <td>@invoice.InvoiceDate</td>
+                    <td>@invoice.User.UserName</td>
+                </tr>
+
+            </tbody>}
+
+                </table>
+
+      
+
+            </div><!--end of .table-responsive-->
+        </div>
+    </div>
+    <br>
+
+
+
+</body>
+</html>

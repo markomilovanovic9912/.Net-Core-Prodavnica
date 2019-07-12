@@ -1,0 +1,106 @@
+﻿@model WebApplication6.Models.Order.OrderListModel
+ 
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShopingCart</title>
+</head>
+<body>
+   
+        <div class="row" style="margin-top:30px;">
+            <breadcrumb style="font-weight:bold;"
+                        asp-homepage-title=" Home"
+                        asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                        asp-homepage-glyphicon="glyphicon glyphicon-home "></breadcrumb>
+        </div>
+    <button onclick="window.location.href = 'CustomerPastOrders'" class="btn btn-warning btn-sm"> Past Orders</button>
+    <div class="row" style="text-align:center; padding:15px; margin-top:36px">
+        <h2 style="color:black !important">Your orders</h2>
+        <div class="col-lg-8">
+            @{ var sum = 0.00; var subsum = 0.0;}
+            @foreach (var order in Model.Orders)
+            {
+                <div class="col-lg-12 col-md-4 col-sm-10 col-xs-12 " style="display:inline-block; float:none;">
+
+                    <div class="card">
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <div class="img-card" href="">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@order.Item.Id">
+                                        <img src="../images/productimages/@order.FirstImage" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <br><br>
+                                <div class="card-content">
+                                    <h4 class="card-title">
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@order.Item.Id">
+                                            @order.Manufacturer.Name  @order.Model.Name
+                                        </a><br>
+                                    </h4>
+                                    <div class="card-read-more">
+                                        COLOR: &nbsp; @order.Item.Color<br>
+                                        AMOUNT: &nbsp; @order.NumberOfItems<br>
+                                        PRICE: &nbsp; @order.Item.Price €
+                                    </div>
+
+                                    @{subsum = @order.NumberOfItems * @order.Item.Price;}
+                                    @{sum += subsum;}
+                                </div>
+                            </div>
+                            <div class="col-lg-1" style="">
+                                <div class="row" style=" margin-top:200% !important">
+
+                                    <form asp-controller="Order" asp-action="RemoveOrder" method="post">
+                                        <input asp-for="@order.Id" type="hidden">
+                                        <button type="submit" class="close" style="font-size: 100px !important; " aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
+        </div>
+
+        <div class="col-lg-4" style="border:1px solid black">
+            <h2 style="color:black !important">TOTAL:</h2>
+            <hr>
+            @{ var vat = 20; var total = 0.0; var perc = 0.0; var bill = 0;}
+
+
+            <div class="col-lg-12">
+                <div class="row" style="text-align:left; border-bottom:1px solid black">
+                    <h4>Price: @sum €</h4>
+                </div><br><br>
+                <div class="row" style="text-align:left; border-bottom:1px solid black">
+                    <h4>VAT: @vat %</h4>
+                </div><br><br>
+                @{ perc = sum * vat / 100;}
+                <div class="row" style="text-align:left; border-bottom:1px solid black">
+                    <h4>Delivery: FREE</h4>
+                </div>
+                <br><br><br>
+                <div class="row" style="text-align:left; border-bottom:1px solid black">
+                    <h3>Total:@{total = sum + perc;} @total €</h3>
+                </div>
+                <br><br><br>
+            </div>
+            <form asp-controller="Order" asp-action="BillingInfo" method="post">
+                <input asp-for="@Model.SumTotal" type="hidden">
+                <button type="submit" class="btn btn-warning btn-sm">Insert Billing Information</button>
+            </form>
+
+        </div>
+    </div>
+                
+
+</body>
+</html>

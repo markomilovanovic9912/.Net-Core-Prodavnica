@@ -1,0 +1,64 @@
+﻿@model WebApplication6.Models.Admin.AdminModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddRemoveManufacturer</title>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+ 
+
+        
+            <div class="row">
+              
+                <div class="text-danger"></div>
+                <div class="col-lg-12" style=" padding:22px;">
+                    <h3>Add/Remove Manufacturer:</h3>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-6" style=" padding:45px;">
+                            <h3>Add:</h3>
+                            <form name="AddManufacturerForm" id="AddManufacturerForm"  method="post" >
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="ManuAdd">Manufacturer Name:</label>
+                                        <textarea id="ManuAdd" name="ManuAdd"  placeholder="Add name" style="resize:none; " class="form-control" rows="1" ></textarea>
+                                    </div>
+                                </div>
+                                <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%; " type="submit">Add Manufacturer</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6" style=" padding:45px;">
+                            <h3>Remove:</h3>
+                            <div class="row">
+                         
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label style="" for="Manufacturer">Manufacturers:</label>
+                                            <select asp-items="@Model.GetManuf()" class="form-control" id="seleManuf">
+                                     
+                                            </select>
+                                        </div>
+                                    </div>
+                            
+                                        <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%; " type="submit" onclick="RemoveManuf('#seleManuf option:selected')">Remove Manufacturer</button>
+                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+        
+
+        <script src="~/js/AdminJs/AddRemoveManuf.js"> </script>
+    </body>
+
+
+ 
+</html>

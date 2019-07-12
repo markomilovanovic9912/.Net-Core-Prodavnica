@@ -1,0 +1,125 @@
+﻿
+@model WebApplication6.Models.Admin.AdminModel
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Indes</title>
+    <link href="~/css/sidebar.css" rel="stylesheet">
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h3>Add new item:</h3>
+    <hr />
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" id="files"
+               name="files" multiple />
+        <input class="btn btn-warning btn-sm" type="button"
+               id="upload"
+               value="Upload Selected Files" />
+    </form>
+
+    <form id="AddItemForm" name="AddItemForm" method="post">
+        <div class="row">
+
+            <div class="text-danger"></div>
+            <div class="col-lg-9" style=" padding:22px;">
+                <div class="row">
+                    <div class="form-group">
+                        <label style="margin-top:20px;" for="AddSpecSpec">Item specification:</label>
+                        <textarea id="AddSpecSpec" name="AddSpecSpec" placeholder="Add specs" style="resize:none; height:215px;" class="form-control" rows="5"></textarea>
+
+                    </div>
+                </div>
+                <div class="row" style="">
+                    <div class="form-group">
+                        <label style="margin-top:20px;" for="AddSpecDescript">Description:</label>
+                        <textarea id="AddSpecDescript" name="AddSpecDescript" placeholder="Add description" style="resize:none; height:215px;" class="form-control" rows="5"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3" style=" padding:22px;">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddModelName">Model:</label>
+                        <input id="AddModelName" name="AddModelName" placeholder="Add item model name" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddModelColor">Color:</label>
+                        <input id="AddModelColor" name="AddModelColor" placeholder="Add color" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label style="" for="AddModelManufacturer">Manufacturer:</label>
+                        <select id="AddModelManufacturer" name="AddModelManufacturer" asp-items="@Model.GetManuf()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label style="" for="AddModelItemType">Item Type:</label>
+                        <select id="AddModelItemType" name="AddModelItemType" asp-items="@Model.GetItemType()" class="form-control" onchange="GetSubCategories('#AddModelItemType option:selected','#AddModelItemTypeSub')"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label style="" for="AddModelItemTypeSub">Item Sub Type:</label>
+                        <select id="AddModelItemTypeSub" name="AddModelItemTypeSub" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label style="" for="AddModelItemDepartment">Item Department:</label>
+                        <select id="AddModelItemDepartment" name="AddModelItemDepartment" asp-items="@Model.GetDept()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddModelAvailibility">Availability:</label>
+                        <input id="AddModelAvailibility" name="AddModelAvailibility" placeholder="Add number of currently stocked items" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddModelPrice">Price:</label>
+                        <input id="AddModelPrice" name="AddModelPrice" placeholder="Add price" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddModelDiscount">Discount:</label>
+                        <input id="AddModelDiscount" name="AddModelDiscount" placeholder="Add discount in percentage" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="padding:22px;">
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="AddImage">Add images:</label>
+                        <textarea id="AddModelAddImage" name="AddModelAddImage" disabled style="resize:none; height:215px;" placeholder="Item Image URL'S" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%;" type="submit">Add item</button>
+    </form>
+    <script src="~/js/AdminJs/AddItem.js"></script>
+    <script>
+      
+    </script>
+
+</body>
+
+
+
+</html>

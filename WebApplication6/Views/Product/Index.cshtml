@@ -1,0 +1,279 @@
+﻿@model WebApplication6.Models.Product.ProductListModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IJsonHelper Json;
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Model.ItemGroup</title>
+    <link href="~/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="~/js/jquery2.1.0.js"></script>
+    <link href="~/css/nouislider.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="~/js/nouislider.js"></script>
+    <script src="~/js/wNumb.js"></script>
+
+</head>
+<body>
+
+    @section Search{ @{ await Html.RenderPartialAsync("~/Views/Home/GetProductNames.cshtml");} }
+    @section nameSection{<div id="NameSection" class="container-prdname" style="background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),url('@Model.HeaderImageUrl');"> <h1 style="color:white !important; font-size:400%;">@Model.ItemGroup</h1></div>}
+
+    <div class="container-prdinfo">
+        <div class="content">
+
+            <div class="col-lg-12 col-md-10 col-xs-10 col-sm-10">
+                <div class="row">
+                    <breadcrumb style="font-weight:bold;"
+                                asp-homepage-title=" Home"
+                                asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                                asp-homepage-glyphicon="glyphicon glyphicon-home "></breadcrumb>
+                </div>
+
+                <div class="row" style="text-align:center;padding-top:5px; margin-bottom:20px;background-color:#f6f6f6; ">
+                    <div class="col-lg-3">
+                        <div class="form-group" style="border:none !important; ">
+                            <label class="filter-col" for="pref-perpage">Number of Items:</label>
+                            <select  id="pref-perpage" class="form-control">
+                                <option value="6" selected="selected">6</option>
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="   ">
+                        <div class="form-group" style="border:none !important;  ">
+                            <label class="filter-col" for="pref-orderby">Order By:</label>
+                            <select name="dropdown-1" onChange="RefreshItems()" id="pref-orderby" class="form-control">
+                                <option value="Select" style="font-weight:bold; font-style:italic;">Order By</option>
+                                <option value="Relevance" selected>Relevance</option>
+                                <option value="BrandAZ">Brand A-Z</option>
+                                <option value="BrandZA">Brand Z-A</option>
+                                <option value="Price(Hi to Low)">Price(Hi to Low)</option>
+                                <option value="Price(Low to Hi)">Price(Low to Hi)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-5" style="padding:40px;  ">
+                        <div id="slider"></div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row" style="  margin-bottom:20px; ">
+                    <div class="col-lg-2" style=" background-color:#f4f4f4;">
+                        <div class="row">
+                            <h3 style="margin-left:20px ">Brands</h3><hr>
+                            @foreach (var man in Model.ManufacturerList)
+                            {<div class="checkbox" id="brandbox" name="brandbox" onchange="RefreshItems()">
+                                    <label style="font-size: 1em">
+                                        <input name="@man" type="checkbox" value="@man">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        @man
+                                    </label>
+                                </div> }
+                        </div>
+                        <div class="row">
+                            <h3 style="margin-left:20px ">Categories</h3><hr>
+                            @foreach (var subCat in Model.SubCategories)
+                            { <div class="checkbox" id="subCatBox" name="subCatBox" onchange="RefreshItems()">
+                                    <label style="font-size: 1em">
+                                        <input name="@subCat" type="checkbox" value="@subCat">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        @subCat
+                                    </label>
+                                </div>}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-10">
+                        <!--<div id="dddd"></div>-->
+
+                        <div class="row" id="cont" style="">
+                            <br>
+                        </div>
+
+                        <div class="row" id="pag" style="text-align:center; margin-bottom:20px;">
+                            <button class="btn btn-lg btn-warning" style="width:70%; " value="" onclick="AddNoI( parseInt($('#pref-perpage option:selected').val())); RefreshItems();">LOAD MORE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+
+
+        <div class="modal-body" style=" padding-top:22%;padding-left:47%;">
+            <div id="loadingDiv" class="loader"></div>
+        </div>
+
+
+    </div>
+    <div id="productHist"></div>
+    <script src="~/js/ProductJs/ProductDetail.js"></script>
+    @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+    {
+        <script>$(document).ready(GetHist());</script>
+    }
+    <script>
+        $(document).ready(RefreshItems);
+
+           
+
+            var slider = document.getElementById('slider');
+            noUiSlider.create(slider, {
+                tooltips: [true,true],
+                start: [@Model.MinPrice - 2 , @Model.MaxPrice + 1 ],
+                connect: true,
+                range: {'min': @Model.MinPrice - 2,'max': @Model.MaxPrice + 1},
+                format: wNumb({ decimals: 2,mark: '.',suffix: ' €' })
+            });
+            slider.noUiSlider.on('change', RefreshItems);
+
+
+
+
+            var NoI = parseInt($('#pref-perpage option:selected').val());
+
+
+
+
+        function AddOrder(id) {
+
+            var itemToAdd =
+                {
+                    ItemId: id,
+                    BillingInfoId: 5032,
+                    InvoiceId: 10
+                };
+
+            $.ajax({
+                type: "POST",
+                url: "/Order/AddOrderFromIndex",
+                data: JSON.stringify(itemToAdd),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    alert(data)
+                }
+            });
+        };
+
+        function AddNoI(value) {
+            NoI += value;
+        };
+
+
+        function GetDetail(id) {
+            window.location.href = '/Product/Detail/' + id ;
+        };
+
+        var sort = 0;
+        
+
+
+        function RefreshItems() {
+
+
+
+            sort = $('#pref-orderby').val();
+
+            var brands = [];
+            var subCategories = [];
+            var range = [];
+
+            range = slider.noUiSlider.get();
+
+            $('#brandbox input:checked').each(function () {
+                brands.push($(this).attr('value'));
+            });
+
+            if (brands.length < 1) {
+                brands = null;
+            };
+
+            $('#subCatBox input:checked').each(function () {
+                subCategories.push($(this).attr('value'));
+            });
+
+            if (subCategories.length < 1) {
+                subCategories = null;
+            };
+
+            var send =
+            {
+
+               
+                Sort: sort,
+                Name: "@Model.Name",
+                ManufacturerList: brands,
+                SubCategories: subCategories,
+                MinPrice: parseFloat(range[0]),
+                MaxPrice: parseFloat(range[1]),
+                /*NumberOfItems: NoI.toString()*/
+
+            };
+
+            $.ajax({
+                url: "/Product/RefreshItems",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(send),
+                beforeSend: function () {
+                    $("#myModal").modal('show');
+                },
+                success: function (data) {
+
+                    var productHtml = "";
+
+                    $.each(data.productIndex.slice(0,NoI), function (index, item) {
+                        productHtml += '<div style="cursor:pointer;" class="col-lg-4 col-md-4 col-sm-10 col-xs-12" style="display:inline-block; float:none;">';
+                        productHtml += '<div class="card">';
+
+                        productHtml += '<div class="img-card" href="">';
+                        productHtml += '<a onClick="GetDetail(' + item.itemId + ')">' + '<img src="' + "../images/productimages/" + item.firstImage + '"/> </a>';
+                       if (item.discount > 0) {
+                         productHtml += '<span class="badge badge-warning" style="width:80%; border-radius:0px;background-color:red;">' + item.discount + '%' + ' Discount' + '</span>';
+                       }
+                        productHtml += '</div>';
+
+                        productHtml += '<div class="card-content">';
+                        productHtml += '<h4 class="card-title" style="font-size: 1em !important;">';
+                        productHtml += '<a onClick="GetDetail(' + item.itemId + ')">' + '<p>' + item.manufacturerName + '<br>' + item.modelName + '</p>' + '</a >';
+                        productHtml += '</h4>';
+
+                        productHtml += '<div class="card-read-more">';
+                        productHtml += 'PRICE: &nbsp;' + item.price + ' €';
+                        productHtml += '</div>' + '<br>';
+
+                        productHtml += '<button class="btn btn-lg btn-warning" style="width:90%;" onClick="AddOrder(' + item.itemId + ')">Add to Cart</button>';
+
+                        productHtml += '</div>';
+                        productHtml += '</div>';
+                        productHtml += '<br>' + '</div>';
+
+                        });
+                    $("#cont").html(productHtml);
+                    $('#myModal').modal('hide');
+                }
+            });
+        }
+
+
+    </script>
+
+
+</body>
+</html>

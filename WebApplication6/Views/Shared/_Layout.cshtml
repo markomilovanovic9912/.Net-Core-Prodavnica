@@ -1,0 +1,720 @@
+﻿
+@using WebApplication6.Models.Product
+@using Microsoft.AspNetCore.Identity
+@using StoreData.Models
+@using StoreData
+@using StoreServices
+@using Microsoft.AspNetCore.Authorization
+
+
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
+@inject IUserService userService
+@inject IOrderService orderService
+@inject IAuthorizationService AuthorizationService
+@inject IProductService ProductService
+
+<section>
+    @{
+        var electric = new Dictionary<string, string>
+{
+{ "_name", "Electric Guitar" },
+{ "_itemGroup", "ELECTRIC GUITARS"},
+
+};
+
+        var acoustic = new Dictionary<string, string>
+{
+{ "_name" , "Acoustic Guitar" },
+{ "_itemGroup", "ACOUSTIC GUITARS"}
+};
+        var classical = new Dictionary<string, string>
+{
+{ "_name", "Classical Guitar" },
+{ "_itemGroup" , "CLASSICAL GUITARS"}
+
+};
+
+        var bass = new Dictionary<string, string>
+{
+{ "_name" , "Bass Guitar"},
+{ "_itemGroup","BASS GUITARS"}
+
+};
+
+        var guitarAmp = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Amp" },
+{ "_itemGroup", "ELECTRIC GUITAR AMPS"}
+
+};
+
+        var bassAmp = new Dictionary<string, string>
+{
+{ "_name" , "Bass Amp"},
+{ "_itemGroup", "BASS AMPS"}
+
+};
+
+        var guitarPedals = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Effect Pedal" },
+{ "_itemGroup", "GUITAR EFFECT PEDALS"}
+
+};
+
+        var guitarProcessors = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Processor"},
+{ "_itemGroup","GUITAR EFFECT PROCESSIRS"}
+
+};
+
+        var stringsAndPicks = new Dictionary<string, string>
+{
+{ "_name" , "String/Pick"},
+{ "_itemGroup","STRINGS AND PICKS"}
+
+};
+
+        var spareParts = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Spare Part"},
+{ "_itemGroup","GUITAR SPARE PARTS"}
+
+};
+
+        var guitarElectronics = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Electronic Component"},
+{ "_itemGroup","GUITAR ELECTRONICS"}
+
+};
+
+        var guitarBagsAndCases = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Bag/Case"},
+{ "_itemGroup","BAGS AND CASES"}
+
+};
+
+        var guitarStrapsAndStands = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Strap/Stand"},
+{ "_itemGroup","STRAPS AND STANDS"}
+
+};
+
+        var guitarCare = new Dictionary<string, string>
+{
+{ "_name" , "Guitar Care Product"},
+{ "_itemGroup","GUITAR CARE PRODUCTS"}
+
+};
+
+        var drumComponents = new Dictionary<string, string>
+{
+
+{ "_name" , "Drum Component"},
+{ "_itemGroup","DRUM COMPONENTS"}
+
+};
+
+        var drumKits = new Dictionary<string, string>
+{
+
+{ "_name" , "Drum Kit"},
+{ "_itemGroup","DRUM KITS"}
+
+};
+
+        var drumHardware = new Dictionary<string, string>
+{
+{ "_name" , "Drum Hardware"},
+{ "_itemGroup","DRUM HARDWARE"}
+
+};
+
+        var drumSticksAndHeads = new Dictionary<string, string>
+{
+{ "_name" , "Drum Stick/Head"},
+{ "_itemGroup","STICKS AND HEADS"}
+
+};
+
+        var cymbalsAndGongs = new Dictionary<string, string>
+{
+{ "_name" , "Cymbal/Gong"},
+{ "_itemGroup","CYMBALS AND GONGS"}
+
+};
+
+        var elDrumComponents = new Dictionary<string, string>
+{
+{ "_name" , "Electronic Drum Component"},
+{ "_itemGroup","ELECTRONIC DRUM COMPONENTS"}
+
+};
+
+        var elDrumKit = new Dictionary<string, string>
+{
+{ "_name" , "Electronic Drum Kit"},
+{ "_itemGroup","ELECTRONIC DRUM KITS"}
+
+};
+
+        var drumPadsModsTriggers = new Dictionary<string, string>
+{
+{ "_name" , "Pad/Module/Trigger"},
+{ "_itemGroup","PADS, MODULES AND TRIGGERS"}
+
+};
+
+        var keybWorkstations = new Dictionary<string, string>
+{
+{ "_name" , "Keyboard Workstation"},
+{ "_itemGroup","WORKSTATIONS"}
+
+};
+
+        var keybSynths = new Dictionary<string, string>
+{
+{ "_name" , "Synthesizer"},
+{ "_itemGroup","SYNTHESIZERS"}
+
+};
+
+        var keybBagsAndCases = new Dictionary<string, string>
+{
+{ "_name" , "Keyboard Bag/Case"},
+{ "_itemGroup","KEYBOARD BAGS AND CASES"}
+
+};
+
+        var keybStands = new Dictionary<string, string>
+{
+{ "_name" , "Keyboard Stand"},
+{ "_itemGroup","KEYBOARD STANDS"}
+
+};
+
+        var keybAmps = new Dictionary<string, string>
+{
+{ "_name" , "Keyboard Amp"},
+{ "_itemGroup","KEYBOARD AMPS"}
+
+};
+
+        var pianoAcoustic = new Dictionary<string, string>
+{
+{ "_name" , "Acoustic Piano"},
+{ "_itemGroup","ACOUSTIC PIANOS"}
+
+
+};
+
+        var pianoElectric = new Dictionary<string, string>
+{
+{ "_name" , "Electric Piano"},
+{ "_itemGroup","ELECTRIC PIANOS"}
+
+};
+
+        var pianoAccesories = new Dictionary<string, string>
+{
+{ "_name" , "Piano Accesorie"},
+{ "_itemGroup","PIANO ACCESORIES"}
+
+};
+
+        var studioAudioInter = new Dictionary<string, string>
+{
+{ "_name","Audio Interface"},
+{ "_itemGroup", "AUDIO INTERFACES"}
+
+};
+
+        var studioControlSurface = new Dictionary<string, string>
+{
+{ "_name","Contro surface"},
+{ "_itemGroup", "CONTROL SURFACES"}
+
+};
+
+        var studioHeadphones = new Dictionary<string, string>
+{
+{ "_name","Studio Headphones"},
+{ "_itemGroup", "HEADPHONES"}
+
+};
+
+        var studioRecMicrophone = new Dictionary<string, string>
+{
+{ "_name","Recording Microphone"},
+{ "_itemGroup", "RECORDING MICROPHONES"}
+
+};
+
+        var studioMusicSoftware = new Dictionary<string, string>
+{
+{ "_name","Music Software"},
+{ "_itemGroup", "MUSIC SOFTWARE"}
+
+};
+
+        var studioStudioMixer = new Dictionary<string, string>
+{
+{ "_name","Studio Mixer"},
+{ "_itemGroup", "STUDIO MIXERS"}
+
+};
+
+        var studioStudioPreamp = new Dictionary<string, string>
+{
+{ "_name","Studio Preamp"},
+{ "_itemGroup", "STUDIO PREAMPS"}
+
+};
+
+        var studioStudioMonitors = new Dictionary<string, string>
+{
+{ "_name","Studio Monitors"},
+{ "_itemGroup", "STUDIO MONITORS"}
+
+};
+
+        var studioAccesories = new Dictionary<string, string>
+{
+{ "_name","Studio Accesorie"},
+{ "_itemGroup", "STUDIO ACCESORIES"}
+
+};
+
+        var studioStudioFurniture = new Dictionary<string, string>
+{
+{ "_name","Studio Furniture"},
+{ "_itemGroup", "STUDIO FURNITURE"}
+
+};
+
+
+    }
+</section>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" type="text/css">
+    <!-- User.FindFirst("LastName").Value-->
+</head>
+<body>
+    <div class="row" style="margin:0px !important;padding:0% 10% 0% 10%;background-color:#f9be02;font-size:20px;color:#35383d !important;">
+        @if (SignInManager.IsSignedIn(User))
+    {
+        @if ((await AuthorizationService.AuthorizeAsync(User, "IsAdmin")).Succeeded)
+    {
+
+        <div class="navbar-left">
+            <ul class="nav navbar-nav">
+
+                <li>
+                    <button onclick=" window.location.href = '/Admin/Index/';" class="btn btn-lg btn-secondary">Admin Page</button>
+                </li>
+
+            </ul>
+        </div>
+
+
+}
+
+        @if ((await AuthorizationService.AuthorizeAsync(User, "IsManager")).Succeeded)
+    {
+
+        <div class="navbar-left">
+            <ul class="nav navbar-nav">
+
+                <li>
+                    <button onclick=" window.location.href = '/OrderProcessing/Index/';" class="btn btn-lg btn-secondary">
+                        Order Processing
+                        <span class="badge">@orderService.GetConfirmedOrders().Count()</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+}
+
+
+        <div class="navbar-right">
+
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right" style="padding:0px;margin:0px;">
+                <ul class="nav navbar-nav">
+                    <li style="margin:0px;">
+                        <button type="submit" class="btn btn-lg btn-secondary">Log out</button>
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <li>
+                    @{int numVal = Int32.Parse(UserManager.GetUserId(User));}
+                    <button onclick=" window.location.href = '/Manage/Index/';" class="btn btn-lg btn-secondary" title="Manage"><span class="glyphicon glyphicon-user"></span> @userService.GetFirstName(numVal) @userService.GetLastName(numVal) </button>
+                </li>
+            </ul>
+        </div>
+
+
+        @if (SignInManager.IsSignedIn(User))
+    {
+        int userId = Int32.Parse(UserManager.GetUserId(User));
+        <form asp-controller="Order" asp-action="ShopingCart" method="post" class="navbar-right" style="padding:0px;margin:0px;">
+            <ul class="nav navbar-nav">
+                <li>
+                    <input asp-for="@userId" type="hidden">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+                        <span class="badge">@orderService.GetNumberOfItems(userId)</span>
+                    </button>
+                </li>
+            </ul>
+        </form>}
+
+}
+else
+{
+
+    <div class="navbar-right">
+        <ul class="nav navbar-nav">
+            <li>
+                <button onclick=" window.location.href = '/Account/Login/';" class="btn btn-lg btn-secondary">Log In</button>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav navbar-nav">
+            <li>
+                <button onclick=" window.location.href = '/Account/Register/';" class="btn btn-lg btn-secondary">Register</button>
+            </li>
+        </ul>
+    </div>
+
+}
+    </div>
+
+    <div class="row " style="background-color:#f9be02 ;margin:0px !important; border:1px solid transparent !important;">
+        <div class="row" style="margin:0px;  padding:0px !important;">
+           
+            <div class="col-lg-12 text-center" style="padding:0px;margin:0px;">
+                <a asp-controller="Home" asp-action="Index"><img src="~/images/logo1.png"></a> </div> 
+                
+            </div>
+        <div class="row" style="margin: auto; max-width: 50%;padding:0px !important;">
+            <div class="col-lg-12" style="padding:0px !important; margin:0px !important; " >
+                @RenderSection("Search", required: false)
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-siroko">
+
+                <nav class="navbar navbar-default " id="navbar" style="border-top:1px #35383d solid;margin-top:2%;">
+                    <div class="content">
+
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+
+                            <div class="collapse navbar-collapse js-navbar-collapse">
+
+
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">GUITARS </a>
+                                        <ul class="dropdown-menu mega-dropdown-menu row">
+                                            <li class="col-sm-3"></li>
+                                            <li class="col-sm-3">
+                                                <ul>
+
+
+                                                    <li class="dropdown-header">GUITARS</li>
+                                                    <li class="divider"></li>
+                                                    <li> <a asp-controller="Product" asp-action="Index" asp-all-route-data="electric">ELECTRIC GUITARS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="acoustic">ACOUSTIC GUITARS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="classical">CLASSICAL GUITARS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="bass">BASS GUITARS</a></li>
+                                                    <li class="divider"></li>
+
+                                                    <li class="dropdown-header">AMPS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarAmp">GUITAR AMPS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="bassAmp">BASS GUITAR AMPS</a></li>
+
+                                                </ul>
+                                            </li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">EFFECTS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarPedals">GUITAR PEDALS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarProcessors">EFFECT PROCESSORS</a></li>
+                                                    <li class="divider"></li>
+                                                    <li class="dropdown-header">ACCESORIES</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="stringsAndPicks">STRINGS AND PICKS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="spareParts">SPARE PARTS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarElectronics">GUITAR ELECTRONICS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarBagsAndCases">BAGS AND CASES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarStrapsAndStands">STRAPS AND STANDS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="guitarCare">GUITAR CARE PRODUCTS</a></li>
+                                                    <li class="divider"></li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+
+                                </ul>
+
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">DRUMS </a>
+                                        <ul class="dropdown-menu mega-dropdown-menu row">
+                                            <li class="col-sm-3"></li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">ACOUSTIC DRUMS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="drumComponents">DRUM COMPONTENTS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="drumKits">DRUM KITS</a></li>
+                                                    <li class="divider"></li>
+                                                    <li class="dropdown-header">DRUM ACCESORIES</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="drumHardware">DRUM HARDWARE</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="drumSticksAndHeads">STICKS AND HEADS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="cymbalsAndGongs">CYMBALS AND GONGS</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">ELECTRONIC DRUMS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="elDrumComponents">ELECTRONIC DRUM COMPONENTS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="elDrumKit">ELECTRONIC DRUM KITS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="drumPadsModsTriggers">PADS, MODULES AND TRIGGERS</a></li>
+                                                    <li class="divider"></li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">KEYBOARDS</a>
+                                        <ul class="dropdown-menu mega-dropdown-menu row">
+                                            <li class="col-sm-3"></li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">KEYBOARDS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="keybWorkstations">WORKSTATIONS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="keybSynths">SYNTHESIZERS</a></li>
+                                                    <li class="divider"></li>
+                                                    <li class="dropdown-header">ACCESORIES</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="keybBagsAndCases">BAGS AND CASES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="keybStands">KEYBOARD STANDS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="keybAmps">KEYBOARDS AMPS</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">PIANOS</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="pianoAcoustic">ACOUSTIC PIANOS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="pianoElectric">ELECTRIC PIANOS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="pianoAccesories">PIANO ACCESORIES</a></li>
+
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">STUDIO </a>
+                                        <ul class="dropdown-menu mega-dropdown-menu row">
+                                            <li class="col-sm-3"></li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">RECORDING</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioAudioInter">AUDIO INTERFACES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioControlSurface">CONTROL SURFACES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioHeadphones">HEADPHONES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioRecMicrophone">RECORDING MICROPHONES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioMusicSoftware">MUSIC SOFTWARE</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioStudioMixer">STUDIO MIXERS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioStudioPreamp">STUDIO PREAMPS</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioStudioMonitors">STUDIO MONITORS</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="col-sm-3">
+                                                <ul>
+                                                    <li class="dropdown-header">ACESSORIES</li>
+                                                    <li class="divider"></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioAccesories">STUDIO ACCESORIES</a></li>
+                                                    <li><a asp-controller="Product" asp-action="Index" asp-all-route-data="studioStudioFurniture">STUDIO FURNITURE</a></li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">DJ & P.A</a>
+                                </ul>
+                                <ul class="nav navbar-nav ">
+                                    <li class="dropdown mega-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ABOUT US</a>
+                                </ul>
+
+
+
+
+                            </div>
+                            <!-- /.nav-collapse -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div>
+
+
+        <div id="headTitle">@RenderSection("nameSection", required: false)</div>
+
+        <div id="carus">@RenderSection("myCarousel", required: false)</div>
+        <div class="container" style="width:76% !important"> @RenderBody() </div>
+ 
+
+        <hr />
+        <footer class="nb-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="about">
+                          
+                            <div class="social-media">
+                                <ul class="list-inline">
+                                    <li><a><i class="fa fa-facebook"></i></a></li>
+                                    <li><a><i class="fa fa-twitter"></i></a></li>
+                                    <li><a><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-info-single">
+                            <h2 class="title">Help Center</h2>
+                            <ul class="list-unstyled">
+                                <li><a><i class="fa fa-angle-double-right"></i> How to Pay</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> FAQ's</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Sitemap</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Delivery Info</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-info-single">
+                            <h2 class="title">Customer information</h2>
+                            <ul class="list-unstyled">
+                                <li><a><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> FAQ's</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-info-single">
+                            <h2 class="title">Security & privacy</h2>
+                            <ul class="list-unstyled">
+                                <li><a><i class="fa fa-angle-double-right"></i> Terms Of Use</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Return / Refund Policy</a></li>
+                                <li><a><i class="fa fa-angle-double-right"></i> Store Locations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-info-single">
+                            <h2 class="title">Payment</h2>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/js/main.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/main.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

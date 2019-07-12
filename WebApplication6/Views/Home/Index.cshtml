@@ -1,0 +1,193 @@
+﻿@model WebApplication6.Models.Product.ProductListModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+
+<!DOCTYPE html>
+
+<section>
+    @{
+
+        var GuitDept = new Dictionary<string, string>
+        {
+            { "department" , "GuitarDepartment" },
+
+        };
+
+
+        var DrumDept = new Dictionary<string, string>
+        {
+            { "department" , "DrumDepartment" },
+
+        };
+        var KeybDept = new Dictionary<string, string>
+        {
+            { "department", "KeyboardDepartment"}
+
+        };
+
+        var StudioDept = new Dictionary<string, string>
+        {
+            { "department", "StudioDepartment"}
+
+        };
+
+    }
+</section>
+
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TVP Music Store</title>
+    <link href="~/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="~/js/jquery2.1.0.js"></script>
+    <script src="~/js/star-rating.js" type="text/javascript"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+
+
+
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/css/site.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+    @section Search{ @{ await Html.RenderPartialAsync("~/Views/Home/GetProductNames.cshtml");} }
+    @section myCarousel{<div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                                <li data-target="#myCarousel" data-slide-to="3"></li>
+                            </ol>
+       
+            <div class="carousel-inner" >
+                @{int i = 0;}
+                @foreach (var img in Model.SliderImages) {
+                            i++;
+                            var active = i == 1 ? "active" : "";
+                           <div class="item @active">
+                            <img src="~/images/IndexPageSliderImages/@img.Url" alt="">
+                           </div>
+                }
+            </div>
+       
+
+        </div> }
+
+
+  
+
+        <section class="wrapper" >
+             
+
+                <h1 style="border-bottom:1px solid black; color:black!important; padding:0px 0px 15px 0px;margin-bottom:20px;">
+                    SHOP BY DEPARTMENT
+                </h1>
+           
+
+            <div class="content" style="margin-top:4%; padding:1% 5% 0% 5%">
+             
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                            <div class="hovereffect">
+                                <a>
+                                    <img class="img-responsive" src="~/images/StoreDepartmentsImages/pexels-photo-164861.jpeg" />
+                                </a>
+                                <div class="overlay">
+                                    <h2>Guitar department</h2>
+                                    <a class="info" asp-controller="Home" asp-action="Department" asp-all-route-data="GuitDept">Enter</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-4 col-xs-12 col-sm-4">
+                            <div class="hovereffect">
+                                <a>
+                                    <img class="img-responsive" src="~/images/StoreDepartmentsImages/pexels-photo-730656.jpeg" />
+                                </a>
+                                <div class="overlay">
+                                    <h2>Drum department</h2>
+                                    <a class="info" asp-controller="Home" asp-action="Department" asp-all-route-data="DrumDept">enter</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                            <div class="hovereffect">
+                                <a>
+                                    <img class="img-responsive" src="~/images/StoreDepartmentsImages/pexels-photo-164922.jpeg" />
+                                </a>
+                                <div class="overlay">
+                                    <h2>Keyboard department</h2>
+                                    <a class="info" asp-controller="Home" asp-action="Department" asp-all-route-data="KeybDept">enter</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                            <div class="hovereffect">
+                                <a>
+                                    <img class="img-responsive" src="~/images/StoreDepartmentsImages/man-person-technology-music.jpg" />
+                                </a>
+                                <div class="overlay">
+                                    <h2>Studio department</h2>
+                                    <a class="info" asp-controller="Home" asp-action="Department" asp-all-route-data="StudioDept">enter</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                            <div class="hovereffect">
+                                <a>
+                                    <img class="img-responsive" src="~/images/StoreDepartmentsImages/pexels-photo-219101.jpeg" />
+                                </a>
+                                <div class="overlay">
+                                    <h2>Dj & Live Sound department</h2>
+                                    <a class="info" href="#"> enter</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+        
+            </div>
+
+        </section>
+        @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+        {
+
+            await Html.RenderPartialAsync("~/Views/Product/History.cshtml");
+
+
+        }
+
+ 
+     
+
+</body>
+</html>

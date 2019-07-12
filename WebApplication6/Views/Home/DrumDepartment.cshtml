@@ -1,0 +1,168 @@
+﻿@model WebApplication6.Models.Product.ProductListModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+
+@{
+    var electric = new Dictionary<string, string>
+{
+{ "_name", "Electric Guitar" },
+{ "_department", "ELECTRIC GUITARS"}
+
+}; }
+@{
+    var acoustic = new Dictionary<string, string>
+{
+{ "_name" , "Acoustic Guitar" },
+{ "_department", "ACOUSTIC GUITARS"}
+}; }
+
+@{
+    var drums = new Dictionary<string, string>
+{
+{ "_name" , "Acoustic Guitar" },
+{ "_department", "ACOUSTIC GUITARS"}
+}; }
+
+
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <title>Drum Deparment</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/js/jquery2.1.0.js"></script>
+    <script src="~/js/star-rating.js" type="text/javascript"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+
+
+
+</head>
+<body>
+
+
+
+
+
+    <section class="wrapper">
+        <div class="container-fostrap" style="border-bottom:1px solid black;">
+
+            <h2 class="heading" style="color:black !important;">
+                DRUM DEPARTMENT
+            </h2>
+        </div>
+
+
+        <div class="container" style="margin-top:4%;">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/13-800x600.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Drum components</h2>
+                            <a class="info" asp-controller="Product" asp-action="Index" asp-all-route-data="electric">Enter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/ludwig-accent-jr-finishes-_0002_layer_3.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Drum kits</h2>
+                            <a class="info">enter</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/ludwig-element-evolution-hardware.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Drum hardware</h2>
+                            <a class="info" asp-controller="Product" asp-action="Index" asp-all-route-data="acoustic">enter</a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4  col-md-4 col-xs-12 col-sm-4">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/nova-category.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Accesories</h2>
+                            <a class="info" href="#"> enter</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/roland-pdx100-drumpad-10.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Electric drum components</h2>
+                            <a class="info" href="#"> enter</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
+                    <div class="hovereffect">
+                        <a>
+                            <img class="img-responsive" src="~/images/StoreDepartmentsImages/DrumDepartmentMenuImages/6e09d1787f9d78e28f3b7d98cd94ee73.jpg" />
+                        </a>
+                        <div class="overlay">
+                            <h2>Electric drum kits</h2>
+                            <a class="info" href="#"> enter</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+    @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+    {
+
+        await Html.RenderPartialAsync("~/Views/Product/History.cshtml");
+
+
+    }
+
+
+
+
+
+
+
+</body>
+</html>

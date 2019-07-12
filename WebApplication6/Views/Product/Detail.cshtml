@@ -1,0 +1,261 @@
+﻿@model WebApplication6.Models.Product.ProductModel
+@using Microsoft.AspNetCore.Authorization
+@using System.Linq;
+@inject IAuthorizationService AuthorizationService
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> @Model.ManufacturerAndModel.Name @Model.Model.Name</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="~/js/jquery2.1.0.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="~/css/carussel.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="~/css/NmbOfItems.css" media="all" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+   
+    <div class="container-prdinfo">
+        <div class="content">
+            <div class="row">
+                <breadcrumb style="font-weight:bold;"
+                            asp-homepage-title=" Home"
+                            asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                            asp-homepage-glyphicon=" glyphicon glyphicon-home ">
+
+                </breadcrumb>
+            </div>
+            <div class="col-lg-12" style="padding:2% 10% 2% 10%">
+
+                <div class="row">
+            
+
+                    <div class="col-lg-2 col-md-2 col-xs-9 col-sm-2" style=" border-right:1px solid black !important">
+                        <div class="clearfix">
+                            <div id="thumbcarousel" class="carousel slide" data-interval="5000">
+                                <div class="carousel-inner ">
+                                    @{var i = 0;}
+                                    @foreach (var img in Model.ImageUrl)
+                                    {
+
+                                        <div class="item active">
+                                            <div data-target="#carousel" data-slide-to="@i" class="thumb"><img id="asw" src="~/images/productimages/@(img.Url)"></div>
+
+
+
+
+                                        </div>i++;
+                                    }
+                                </div><!-- /carousel-inner -->
+
+                            </div> <!-- /thumbcarousel -->
+                        </div><!-- /clearfix -->
+                    </div>
+
+                    <div class="col-lg-6 col-md-5 col-xs-12 col-sm-5" style="padding:25px !important;   border-right:1px solid black;">
+                        <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <div class="carousel-inner" style="cursor: zoom-in;">
+
+                                @foreach (var img in Model.ImageUrl)
+                                {
+
+
+                                    if (Model.ImageUrl.First() == img)
+                                    {
+                                        <div class="item active">
+                                            <img onclick="document.getElementById(@img.Id).style.display='block'" src="~/images/productimages/@(img.Url)">
+                                        </div>
+                                        <div id="@img.Id" class="w3-modal" onclick="this.style.display='none'" style="padding:3%;margin:0px;">
+                                            <div class="w3-modal-content w3-animate-zoom">
+                                                <span class="w3-button w3-amber w3-hover- w3-xlarge w3-display-topright">&times;</span>
+                                                <img src="~/images/productimages/@(img.Url)" style="width:100%; height:100%;">
+                                            </div>
+                                        </div>
+                                    }
+
+                                    else
+
+                                    {
+                                        <div class="item">
+                                            <img onclick="document.getElementById(@img.Id).style.display='block'" src="~/images/productimages/@(img.Url)">
+                                        </div>
+                                        <div id="@img.Id" class="w3-modal" onclick="this.style.display='none'" style="padding:3%;margin:0px;">
+
+                                            <div class="w3-modal-content w3-animate-zoom">
+                                                <span class="w3-button w3-amber w3-hover-black w3-xlarge w3-display-topright">&times;</span>
+                                                <img src="~/images/productimages/@(img.Url)" style="width:100%; height:100%;">
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-5 col-xs-12 col-sm-5" style=" padding-left:5%;">
+
+                        <div class="row" style="border-bottom:1px solid black;padding:25px 25px 25px 0px !important;">
+                            <span class="detailContentManufacturerName" style="text-transform: uppercase;">@Model.ManufacturerAndModel.Name</span> &nbsp<span style="font-size:150%;font-weight:bold;"> @Model.Model.Name</span>
+                        </div>
+                        <div class="row" style=" padding:15px 25px 10px 0px !important;">
+                            <span style="font-size:100%">AVRAGE BUYER RATING:</span>
+                            <br><span style="font-size:100%"><input value="@Model.AvrageUserRating" class="rating" min=0 max=5 step=0.1 data-size="xs" readonly>(@Model.AvrageUserRating)&nbsp(@Model.NumberOfReviews Reviews)</span>
+                        </div>
+                        <div class="row" style=" padding:0px 25px 10px 0px !important;">
+                            <span style="font-size:100%">AVAILABILITY:</span> &nbsp&nbsp&nbsp <span class="detailContentAvailability"  >@Model.Availibility In Stock</span>
+                        </div>
+                        <div class="row " style=" padding:0px 25px 10px 0px !important;">
+                            @{ if (Model.Discount > 0)
+                                {<span style="font-size:100%">DISCOUNT:</span> <span class="detailContentDiscount"  >&nbsp&nbsp  @Model.Discount %  </span>}}
+                        </div>
+                        <div class="row " style=" padding:0px 25px 10px 0px !important;">
+                            <div class="col-lg-12" style="padding:0px;">
+                            @{double price = Model.Price; int discount = Model.Discount; double priceAfterDiscount = price - (price * discount / 100);}
+                            @{ if (Model.Discount > 0)
+                                {<span style="font-size:100%">PRICE:</span> <span class="detailContentPriceStrike">&nbsp&nbsp<strike> @Model.Price € </strike></span>
+                                <span class="detailContentPrice">&nbsp @Math.Round(@priceAfterDiscount, 2) €</span>
+                            }
+                            else
+                            {<span style="font-size:100%">PRICE:</span> <span class="detailContentPrice">&nbsp&nbsp &nbsp  @Model.Price € </span> }
+                            }
+                                </div>
+                        </div>
+
+                        <div class="row" style="  ">
+
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+                            {<form name="AddOrderForm" id="AddOrderForm">
+                                    <input id="AddOrderItemId" name="AddOrderItemId" type="hidden" value="@Model.ItemId">
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus">
+                                        <input id="AddOrderNumberOfItems" name="AddOrderNumberOfItems" type="number" step="1" min="1" max="@Model.Availibility" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
+                                        <input type="button" value="+" class="plus">
+                                    </div>
+                                    <hr>
+                                    <button class="btn btn-lg btn-warning" style="width:100%;" type="submit">Add to cart</button>
+                                </form>
+
+                            }
+                            else
+                            {
+                                <form asp-controller="Account" asp-action="Login">
+                                    <hr>
+                                    <button class="btn btn-lg btn-warning" style="width:100%;" type="submit">Add to cart</button>
+                                </form>}
+                        </div>
+
+                    </div>
+
+                </div> <!-- /row -->
+        
+                <div class="row" style="margin-top:40px !important;">
+
+
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top:20px; margin-bottom:10px; padding-top:10px; border-top:1px solid black !important; font-size:16px; ">
+                        <div id="exTab1" class="container-fluid">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#1a" data-toggle="tab">Description</a>
+                                </li>
+                                <li>
+                                    <a href="#2a" data-toggle="tab">Specs</a>
+                                </li>
+                                <li>
+                                    <a href="#3a" data-toggle="tab">Reviews</a>
+                                </li>
+                                @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+                                {
+                                    <li><a href="#4a" data-toggle="tab">Add A Review</a></li>
+                                }
+                            </ul>
+                            @{
+                                var specification = @Model.Specs.Specification.Split('.').ToList();
+                                var desc = @Model.Specs.Description.Split('.').Length;
+                                var rows = desc + (desc / 2);
+                            }
+
+
+                            <div class="tab-content clearfix">
+                                <div class="tab-pane active" id="1a">
+                                    <p style="font-weight:bold; padding-top:10px">@Model.ManufacturerAndModel.Name @Model.Model.Name</p><hr>
+                                    <textarea rows="@rows" style="resize:none;width:100%; border:none;">@Model.Specs.Description</textarea>
+                                </div>
+                                <div class="tab-pane" id="2a">
+                                    <h3 style="margin-bottom:20px">SPECS:</h3>
+                                    @foreach (var spec in specification)
+                                    {
+                                        <p>@spec</p>
+                                    }
+                                </div>
+
+
+
+
+
+                                <div class="tab-pane" id="3a">
+
+                                    @foreach (var rev in @Model.Reviews)
+                                    {<div class="responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="col-lg-6" style="text-align:left">@rev.Users.FirstName  @rev.Users.LastName</div>
+                                                            <div class="col-lg-6" style="text-align:right"> @rev.DayOfReview </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="text-align:left"><td>@rev.Text</td></tr>
+                                                    <tr><td style="text-align:center"><input value="@rev.Rating" class="rating" min=0 max=5 step=0.1 data-size="xs" readonly></td></tr>
+                                                </tbody>
+
+
+
+
+                                            </table>
+                                        </div>
+
+
+                                    }
+                                </div>
+                                <div class="tab-pane" id="4a">
+                                    <form id="AddReviewForm" name="AddReviewForm" method="post">
+                                        <input id="RevItemId" name="RevItemId" type="hidden" value="@Model.ItemId">
+                                        <textarea id="RevText" name="RevText" rows="15" style="width:100%;margin-bottom:1%;"></textarea>
+                                        <input id="RevRating" name="RevRating" class="rating" min=0 max=5 step=0.1 data-size="xs">
+                                        <button style="margin-top:1%;" type="submit" class="btn btn-sm btn-warning">Add Review</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- /container -->
+
+        </div>
+    </div>
+    <div id="relatedProducts"></div>
+    <div id="productHist"></div>
+
+    <script src="~/js/ProductJs/ProductDetail.js"></script>
+    <script>$(document).ready(GetRelated(@Model.ItemId));</script>
+    @if ((await AuthorizationService.AuthorizeAsync(User, "IsUser")).Succeeded)
+    {
+        <script>$(document).ready(GetHist());</script>
+    }
+
+</body>
+
+</html>

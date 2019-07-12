@@ -1,0 +1,44 @@
+﻿ @model WebApplication6.Models.Admin.AdminModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Orders</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <textarea id="orders"> </textarea>
+
+
+
+    <script>
+
+
+        $(document).ready(function () {
+           
+            
+            $.ajax({
+                url: "/Admin/GetOrders",
+                type: "POST",
+                dataType: "text",
+                contentType: "application/json",
+                success: function (data) {
+
+                  
+
+                        $('#orders').html(data);
+
+                    
+                    
+
+                },
+
+
+
+            });
+        })
+    </script>
+
+</body>
+</html>

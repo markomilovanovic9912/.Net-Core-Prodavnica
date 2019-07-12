@@ -1,0 +1,80 @@
+﻿@model WebApplication6.Models.Product.ProductListModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+ 
+    <script src="~/js/jquery2.1.0.js"></script>
+</head>
+<body>
+
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12" style=" padding:22px;">
+
+                <div class="form-group" style="margin-bottom:0px !important;padding-bottom:0px !important; ">
+                    <input style="border-radius:0px;" placeholder="Search Products By Name" id="searchProd" class="form-control" type="text" name="searchProd">
+                    <div style="background-color:white;margin-top:0px !important;padding-top:0px !important;" id="prd" name="prd">  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+
+
+        <div class="modal-body" style=" padding-top:22%;padding-left:47%;">
+            <div id="loadingDiv" class="loader"></div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+
+        var timer = null;
+        $('#searchProd').keydown(function () {
+            clearTimeout(timer);
+            timer = setTimeout(SearchProducts, 4000)
+        });
+        function GetDetailFromSearch(id) {
+            window.location.href = '/Product/Detail/' + id;
+        };
+
+        function SearchProducts() {
+
+            ProdSearch = document.getElementById("searchProd").value
+
+            $.ajax({
+                url: "/Home/GetProductNames",
+                type: "POST",
+                dataType: "JSON",
+                contentType: "application/json",
+                data: JSON.stringify(ProdSearch),
+                beforeSend: function () {
+                    $("#myModal").modal('show');
+                },
+                success: function (data) {
+
+                    var newHtml = "";
+                    $.each(data.productIndex, function (index, item) {
+                        newHtml += '<a style="cursor:pointer;" onClick="GetDetailFromSearch(' + item.itemId + ')">' + '<p>' + item.manufacturerName + ' ' + item.modelName + '</p>' + '</a >';
+
+                    });
+                    $('#prd').html(newHtml);
+                    $('#myModal').modal('hide');
+                }
+            });
+        }
+
+
+
+
+
+    </script>
+
+</body>
+</html>

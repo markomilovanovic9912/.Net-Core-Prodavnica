@@ -1,0 +1,220 @@
+﻿@model WebApplication6.Models.Order.OrderListModel
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ORDER PROCESSING</title>
+    <link href="~/css/sidebar.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+ 
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row"><h1>Order Processing</h1></div>
+            <h3>Dashboard</h3>
+            <div class="tabbable-panel">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#tab_default_1" data-toggle="tab">
+                                Confirmed Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_default_2" data-toggle="tab">
+                                Pending Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_default_3" data-toggle="tab">
+                                Order History
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="padding:20px;">
+                        <div class="tab-pane active" id="tab_default_1">
+                            <div class="row">
+                                <form id="processOrderForm" name="processOrderForm" method="post">
+                                    <h3>Proces Confirmed Orders:</h3>
+                                    <div class="form-group">
+                                        <div class="col-lg-7"  style="border-bottom:1px solid black; padding-bottom:10px">
+                                            <div class="row"> <div class="col-lg-3" > <label for="BllingInfoId">Input Billing Info Id:</label></div></div>
+                                            <div class="row">
+                                                <div class="col-lg-2" >
+                                                    <input id="BillInfoId" name="BillInfoId" class="form-control" type="text">
+                                                </div>
+                                                <div class="col-lg-2" style=" padding-top:12px !important">
+                                                    <button type="submit" class="btn btn-warning btn-xs"> Submit Id</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+  
+                            <div class="row" style="margin-top:30px;">
+                                <div class="col-xs-12">
+                                    <h3 style="text-align:center; margin-bottom:20px;">Confirmed Orders </h3>
+                                    <div class="table-responsive" style="overflow:auto; height:50%">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Billing Info Id</th>
+                                                    <th>Order Id</th>
+                                                    <th>Customer Id</th>
+                                                    <th>Manufacturer</th>
+                                                    <th>Model</th>
+                                                    <th>Color</th>
+                                                    <th>Quantity</th>
+                                                    <th>Order Status</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var order in Model.ConfirmedOrders)
+                                            {
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@order.BillingInfo.Id</td>
+                                                        <td>@order.Id</td>
+                                                        <td>@order.UserId</td>
+                                                        <td>@order.Manufacturer.Name</td>
+                                                        <td>@order.Model.Name</td>
+                                                        <td>@order.Item.Color</td>
+                                                        <td>@order.NumberOfItems</td>
+                                                        <td>@order.Status</td>
+                                                        <td>@order.PaymentMethod</td>
+                                                        <td>@order.Item.Price €</td>
+                                                    </tr>
+
+                                                </tbody>}
+
+                                        </table>
+                                    </div><!--end of .table-responsive-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_default_2">
+                            <div class="row">
+                                <form id="ChangeOrderStatusForm" name="ChangeOrderStatusForm" method="post">
+                                    <h3>Proces Pending Orders:</h3>
+                                    <div class="form-group">
+                                        <div class="col-lg-8" style="border-bottom:1px solid black; padding-bottom:10px">                              
+                                                <div class="row"> <div class="col-lg-3"> <label for="BllingInfoId">Input Billing Info Id:</label></div></div>                                            
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <input id="BillInfoIdStatus" name="BillInfoIdStatus" class="form-control" type="text">
+                                                    </div>
+                                                    <div class="col-lg-4" style=" padding-top:10px !important">
+                                                        <select id="orderStatusSelect" name="orderStatusSelect" class="form-control">
+                                                            <option value="5" selected>Delivered</option>
+                                                            <option value="6">Rejected</option>
+                                                            <option value="7">Canceled</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-2" style=" padding-top:12px !important">
+                                                        <button type="submit" class="btn btn-warning btn-xs"> Submit Id</button>
+                                                    </div>
+                                                </div>
+                                                </div>     
+                                            </div>                                               
+                                </form>
+                            </div>
+                            <div class="row" style="padding-top:20px">
+                                <div class="col-xs-12">
+                                    <h3 style="text-align:center;margin-bottom:20px;">Pending Orders</h3>
+                                    <div class="table-responsive" style="overflow:auto; height:50%">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Billing Info</th>
+                                                    <th>Order Id</th>
+                                                    <th>Customer Id</th>
+                                                    <th>Manufacturer</th>
+                                                    <th>Model</th>
+                                                    <th>Color</th>
+                                                    <th>Quantity</th>
+                                                    <th>Order Status</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var order in Model.PendingOrders)
+                                            {
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@order.BillingInfo.Id</td>
+                                                        <td>@order.Id</td>
+                                                        <td>@order.UserId</td>
+                                                        <td>@order.Manufacturer.Name</td>
+                                                        <td>@order.Model.Name</td>
+                                                        <td>@order.Item.Color</td>
+                                                        <td>@order.NumberOfItems</td>
+                                                        <td>@order.Status</td>
+                                                        <td>@order.PaymentMethod</td>
+                                                        <td>@order.Item.Price €</td>
+                                                    </tr>
+
+                                                </tbody>}
+                                        </table>
+                                    </div><!--end of .table-responsive-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_default_3">
+                            <div class="row" style="margin-top:30px">
+                                <h3 style="text-align:center;margin-bottom:20px;">User Order History</h3>
+                                <div class="col-lg-12" style=" ">
+                                    <div class="row">                                    
+                                        <div class="col-lg-6" style=" padding:22px;">
+                                            <div class="row">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label style="" for="search">Search Users By Username:</label>
+                                                        <input id="searchUsersInv" class="form-control" type="text" name="searchUsersInv" onkeyup="SearchUsersInv()">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="row">
+                                                <form asp-action="InvoiceList" asp-controller="OrderProcessing" method="post">
+                                                    <div class="form-group">                                                       
+                                                            <label for="usrIdInv">Customer Id:</label>
+                                                            <input  id="usrIdInv" class="form-control" type="text" asp-for="@Model.UserId">
+                                                            <button class="btn btn-warning" type="submit"> Submit Id</button>                                                   
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                                                             
+                                        <div class="col-lg-6" style=" padding:22px;">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label style="" for="User">Users:</label>
+                                                    <select id="seleUserInv" name="seleUserInv" multiple style="height:20%" onchange=" " class="form-control"></select>
+                                                </div>
+                                            </form>
+                                        </div>                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <script src="~/js/OrderProcessingJs/OrderProcIndex.js"></script>
+
+</body>
+</html>

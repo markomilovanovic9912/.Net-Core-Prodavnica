@@ -1,0 +1,123 @@
+﻿@model WebApplication6.Models.Admin.AdminModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateItem</title>
+
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+  
+ 
+</head>
+<body>
+
+    <h3>Update item:</h3>
+    <hr />
+
+    <div class="row">
+
+
+
+        <div class="col-lg-4" style=" padding:22px;">
+
+            <div class="form-group">
+                <label style="" for="ItemType">Item Type:</label>
+                <select id="ItemTypes2" asp-items="@Model.GetItemType()" class="form-control" onchange="GetModels('#ItemTypes2 option:selected','#seleModel')">
+                    <option value="">Select</option>
+                </select>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="col-lg-8" style=" padding:22px;">
+            <div class="form-group">
+                <label style="" for="seleModel">Model:</label>
+                <select multiple style="height:15%" class="form-control" id="seleModel" name="seleModel" onclick="GetSpecs($('#seleModel option:selected').val())">
+                    <option value="">Select</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+
+    <form name="updateForm" id="updateForm">
+        <div class="row">
+
+            <div class="text-danger"></div>
+            <div class="col-lg-12" style=" padding:22px;">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="Id">Id:</label>
+                            <textarea id="IdUpdt" name="IdUpdt" style="resize:none;" disabled rows="1" type="text" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="SpecsIdUpdt">Specs Id:</label>
+                            <textarea id="SpecIdUpdt" name="SpecIdUpdt" style="resize:none;" disabled rows="1" type="text" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9" style=" padding:22px;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="SpecsUpdt">Item specification:</label>
+                                <textarea id="SpecsUpdt" name="SpecsUpdt" placeholder="Add specs" style="resize:none; height:215px;" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" style="">
+                            <div class="form-group">
+                                <label style="margin-top:20px;" for="DescriptUpdt">Description:</label>
+                                <textarea id="DescriptUpdt" name="DescriptUpdt" placeholder="Add description" style="resize:none; height:215px;" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" style=" padding:22px;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="ColorUpdt">Color:</label>
+                                <textarea id="ColorUpdt" name="ColorUpdt" style="resize:none;" rows="1" placeholder="Add color" type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="AvailabilityUpdt">Availability:</label>
+                                <textarea id="AvailabilityUpdt" name="AvailabilityUpdt" style="resize:none;" rows="1" placeholder="Add number of currently stocked items" type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="Price">Price:</label>
+                                <textarea id="PriceUpdt" name="PriceUpdt" style="resize:none;" rows="1" placeholder="Add price" type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="Discount">Discount:</label>
+                                <textarea id="DiscountUpdt" name="DiscountUpdt" style="resize:none;" rows="1" placeholder="Add discount in percentage" type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="subUpdate" type="submit" class="btn btn-warning btn-sm" style="background-color:#FFB81C; padding:10px;text-align:center; width:100%;" >Update item</button>
+
+    </form>
+
+
+    <div id="dddddd"></div>
+    <script src="~/js/AdminJs/UpdateItem.js"> </script>
+</body>
+</html>

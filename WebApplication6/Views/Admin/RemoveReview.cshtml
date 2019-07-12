@@ -1,0 +1,67 @@
+﻿@model WebApplication6.Models.Admin.AdminModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RemoveReview</title>
+    <link href="~/css/Validation.css" media="all" rel="stylesheet" type="text/css" />
+ 
+</head>
+<body>
+
+
+
+    <h3>Remove review:</h3>
+    <hr />
+
+
+
+    <div class="row">
+        <div class="col-lg-4" style=" margin-top:10px; ">
+            <div class="form-group">
+                <label style="" for="ItemType">Item Type:</label>
+                <select id="ItemTypes3" asp-items="@Model.GetItemType()" class="form-control" onchange="GetModels('#ItemTypes3 option:selected','#seleModel123')">
+                    <option value="">Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-8" style="  ">
+            <form id="revRemoveForm" name="revRemoveForm">
+
+                <div class="col-lg-2" style="  ">
+                    <div class="form-group">
+                        <label for="revId">Review Id:</label>
+                        <textarea name="revId" id="revId" style="resize:none;" rows="1" type="text" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <button class="btn btn-warning btn-sm" id="subRevDel" type="submit" style="background-color:#FFB81C;   margin-top:25px;">Remove review</button>
+                </div>
+            </form>
+         
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label style="" for="Model">Model:</label>
+                <select multiple asp-for="ModelName" style="height:30%" class="form-control" id="seleModel123" onchange="GetReviews('#seleModel123 option:selected','#revText')">
+                    <option value="">Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-8" style=" ">
+
+            <div class="form-group">
+                <label for="revText">Review:</label>
+                <textarea disabled style="resize:none; height:30%;" class="form-control" rows="5" id="revText" name="revText"></textarea>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/AdminJs/RemoveReview.js"></script>
+</body>
+</html>

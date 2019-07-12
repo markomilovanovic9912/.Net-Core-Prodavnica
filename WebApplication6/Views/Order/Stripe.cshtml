@@ -1,0 +1,29 @@
+﻿@using Microsoft.Extensions.Options
+@using StoreServices
+@inject IOptions<StripeSettings> Stripe
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Stripe</title>
+</head>
+<body>
+
+    <form action="/Home/Charge" method="POST">
+        <article>
+            <label>Amount: $5.00</label>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-locale="auto"
+                data-description="Sample Charge"
+                data-amount="500">
+        </script>
+    </form>
+
+
+</body>
+</html>
