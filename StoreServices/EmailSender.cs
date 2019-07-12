@@ -19,7 +19,7 @@ namespace StoreServices
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager*/
 
-          string key = "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";//ZA BUDUCU PROMENU
+          string key = "";//ZA BUDUCU PROMENU
 
 
             public Task SendEmailAsync(string email, string subject, string message)
