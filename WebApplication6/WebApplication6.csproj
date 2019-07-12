@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>5e33f245-9503-49f8-a986-127371899c09</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\font-awesome.css" />
+    <Content Remove="wwwroot\css\font-awesome.min.css" />
+    <Content Remove="wwwroot\css\jquery.mobile.custom.structure.css" />
+    <Content Remove="wwwroot\css\jquery.mobile.custom.theme.css" />
+    <Content Remove="wwwroot\css\StyleSheet.scss" />
+    <Content Remove="wwwroot\css\StyleSheet1.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.0" />
+    <PackageReference Include="jQuery.Validation" Version="1.17.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.0.6" />
+    <PackageReference Include="Stripe.net" Version="19.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreData\StoreData.csproj" />
+    <ProjectReference Include="..\StoreIdentity\StoreIdentity.csproj" />
+    <ProjectReference Include="..\StoreServices\StoreServices.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Manage\" />
+    <Folder Include="wwwroot\images\IndexPageSliderImages\" />
+    <Folder Include="wwwroot\images\StoreDepartmentsImages\" />
+    <Folder Include="wwwroot\images\productimages\" />
+  </ItemGroup>
+
+</Project>
