@@ -1,0 +1,13 @@
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\StoreIdentity.deps.json
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\StoreIdentity.dll
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\StoreIdentity.pdb
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.csprojResolveAssemblyReference.cache
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.csproj.CoreCompileInputs.cache
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.AssemblyInfoInputs.cache
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.AssemblyInfo.cs
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.dll
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\obj\Debug\netcoreapp2.0\StoreIdentity.pdb
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\StoreData.dll
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\StoreData.pdb
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\5150\source\repos\WebApplication6\StoreIdentity\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Authorization.xml
