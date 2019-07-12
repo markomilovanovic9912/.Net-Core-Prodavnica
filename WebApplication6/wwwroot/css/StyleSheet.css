@@ -1,0 +1,76 @@
+﻿
+.carousel-inner.onebyone-carosel {
+    margin: auto;
+    width: 100%;
+}
+
+.onebyone-carosel .active{
+
+ 
+    text-decoration:none !important;
+}
+
+.onebyone-carosel .active.left {
+    left: 100.33%;
+}
+
+.onebyone-carosel .active.right {
+    left: 100.33%;
+}
+
+.onebyone-carosel .next {
+    left: 100.33%;
+}
+
+.onebyone-carosel .prev {
+    left: -100.33%;
+}
+
+#myCarousel .col-md-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.carousel-control.right {
+    background-image: none !important;
+    filter: none !important;
+}
+
+#myCarousel {
+    margin-top: 30px;
+
+}
+
+.carousel-control {
+    background-color: #FFB81C !important;
+    font-size: 1.5em;
+    height: 32px;
+    line-height: 1.4;
+    margin: -55px 2px 0px 1112px;
+    padding: 0px 0px;
+    width: 32px;
+    -webkit-transition: color .2s;
+    -moz-transition: color .2s;
+    -ms-transition: color .2s;
+    -0-transition: color .2s;
+    transition: color .2s;
+    border-radius: 0px;
+    opacity: 100 !important;
+}
+
+    .carousel-control:hover {
+        opacity: 0.8 !important;
+    }
+
+.abab {
+    margin: -55px 38px 0px;
+    background-image: none !important;
+    filter: none !important;
+}
+
+ 
+
+
+

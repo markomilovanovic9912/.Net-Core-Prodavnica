@@ -1,0 +1,20 @@
+﻿.error {
+   /* border: 1px solid #f00;*/
+    color: #f00;
+}
+
+.valid {
+    border: 1px solid;
+    border-color:darkblue;
+}
+
+form, input {
+    margin: 10px;
+}
+
+#docs {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
