@@ -1,0 +1,11 @@
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.csprojResolveAssemblyReference.cache
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.csproj.CoreCompileInputs.cache
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.AssemblyInfoInputs.cache
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.AssemblyInfo.cs
+C:\Users\5150\source\repos\WebApplication6\StoreServices\bin\Debug\netcoreapp2.0\StoreServices.deps.json
+C:\Users\5150\source\repos\WebApplication6\StoreServices\bin\Debug\netcoreapp2.0\StoreServices.dll
+C:\Users\5150\source\repos\WebApplication6\StoreServices\bin\Debug\netcoreapp2.0\StoreServices.pdb
+C:\Users\5150\source\repos\WebApplication6\StoreServices\bin\Debug\netcoreapp2.0\StoreData.dll
+C:\Users\5150\source\repos\WebApplication6\StoreServices\bin\Debug\netcoreapp2.0\StoreData.pdb
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.dll
+C:\Users\5150\source\repos\WebApplication6\StoreServices\obj\Debug\netcoreapp2.0\StoreServices.pdb
